@@ -40,7 +40,13 @@ if (process.env.NODE_ENV === "production") {
 }
 
 console.log("Registered routes:");
-app._router.stack.filter((r) => r.route).map((r) => console.log(r.route.path));
+if (app._router && app._router.stack) {
+  app._router.stack
+    .filter((r) => r.route)
+    .map((r) => console.log(r.route.path));
+} else {
+  console.log("No routes found — check if app is initialized correctly.");
+}
 
 server.listen(PORT, () => {
   console.log("server is running on PORT:" + PORT);
