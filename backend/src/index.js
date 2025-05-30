@@ -13,10 +13,9 @@ import { app, server } from "./lib/socket.js";
 
 dotenv.config();
 
-const PORT = process.env.PORT; //reading .env file
+const PORT = process.env.PORT;
 const __dirname = path.resolve();
 
-// middleware used to extract the json data out of body
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -32,7 +31,7 @@ app.use("/api/messages", messageRoutes);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("*", (_req, res) => {
+  app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
